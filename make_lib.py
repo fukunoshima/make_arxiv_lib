@@ -9,7 +9,7 @@ home_dir = os.environ['HOME']
 
 #-------------------------------------
 pdf_folder = 
-datafol    = 
+datafol    = "./data/"
 output     = "./arxiv.html"
 #-------------------------------------
 
