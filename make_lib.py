@@ -8,8 +8,8 @@ import numpy as np
 home_dir = os.environ['HOME']
 
 #-------------------------------------
-pdf_folder = 
-datafol    = "./data/"
+pdf_folder = home_dir+""
+datafol    = home_dir+"/gdrive/GoodNotes_yomu/python_lib/data/"
 output     = "./arxiv.html"
 #-------------------------------------
 
@@ -39,23 +39,27 @@ for lis in lists_exist:
         rem_list += [lis]
 
 
+mis_list = []
 for lis in make_list:
-    search = arxiv.Search(id_list=[lis])
-    paper = next(search.results())
-    names = []
-    for i in range(len(paper.authors[:])):
-        names += [str(paper.authors[i])]
+    try:
+        search = arxiv.Search(id_list=[lis])
+        paper = next(search.results())
+        names = []
+        for i in range(len(paper.authors[:])):
+            names += [str(paper.authors[i])]
 
-    f = open(datafol+lis, 'w')
-    f.write(paper.title+"\n")
+        f = open(datafol+lis, 'w')
+        f.write(paper.title+"\n")
     
-    for i in range(len(names)):
-        f.write(names[i])
-        if i < len(names)-1:
-            f.write(", ")
-    f.write("\n")
-    f.write(paper.summary.replace('\n', ''))
-    f.close()
+        for i in range(len(names)):
+            f.write(names[i])
+            if i < len(names)-1:
+                f.write(", ")
+        f.write("\n")
+        f.write(paper.summary.replace('\n', ''))
+        f.close()
+    except:
+        mis_list += [lis]
 
 for lis in rem_list:
     os.remove(datafol+lis)
@@ -82,6 +86,7 @@ i = 1
 for lis in month:
     f.write("<li><a href=\"#anchor"+str(i)+"\">"+lis+"</a></li>\n")
     i += 1
+f.write("<li><a href=\"#anchor"+str(i)+"\">error</a></li>\n")
 f.write("</ol>\n")
 
 i =  1
@@ -116,6 +121,10 @@ for lis_month in month:
         ii+=1
     i+=1
 
+f.write("<h2>error list</h2>\n")
+f.write("<p><a id=\"anchor"+str(i)+"\"></a></p>")
+for lis in mis_list:
+    f.write("<a href=\""+pdf_folder+lis+".pdf\">"+lis+".pdf"+"</a></p>\n")
 f.close()
 
 
