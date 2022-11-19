@@ -9,7 +9,7 @@ home_dir = os.environ['HOME']
 
 #-------------------------------------
 pdf_folder = home_dir+""
-datafol    = home_dir+"/gdrive/GoodNotes_yomu/python_lib/data/"
+datafol    = "./data/"
 output     = "./arxiv.html"
 #-------------------------------------
 
